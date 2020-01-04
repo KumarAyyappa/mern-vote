@@ -1,13 +1,21 @@
+require('dotenv').config();
+
 const express = require('express');
 
 const handle=require('./handlers')
 
+const cors=require('cors');
+const bodyParser=require('body-parser');
+
 const app =express();
-const port=4000;
+const port=process.env.PORT;
+
+app.use(cors());
+app.use(bodyParser.json());
 
 app.get('/',(req,res)=>{
     res.json({
-        hello:'hello world'
+        hello:'hello world amigos'
     });
 })
 
