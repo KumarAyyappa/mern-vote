@@ -9,7 +9,10 @@ exports.register=async (req,res,next)=>{
         const user=await db.User.create(req.body);
         const {id,username} = user;
 
-        const token=jwt.sign({id,user},process.env.SECRET);
+        let key=new Buffer(process.env.SECRET,"base64");
+
+
+        const token=jwt.sign({id,user},key);
 
         res.status(201).json({id,username,token});
     }catch(err){
@@ -29,7 +32,9 @@ exports.login=async (req,res,next)=>{
         const valid=await bcrypt.compare(req.body.password,user.password);
         if(valid){
 
-            const token=jwt.sign({id,username},process.env.SECRET);
+            let key=new Buffer(process.env.SECRET,"base64");
+
+            const token=jwt.sign({id,username},key);
 
             res.json({
                 id,
@@ -66,12 +71,3 @@ var stringifyError = function(err, filter, space) {
     return JSON.stringify(plainObject, filter, space);
   };
 */
-
-function CustomError(name,message){
-    this.status=404;
-    this.name=name;
-    this.message=message || "Nothing to be shown here";
-    var error=new Error(this.message);
-    error.name=this.name;
-}
-CustomError.prototype=Object.create(Error.prototype);

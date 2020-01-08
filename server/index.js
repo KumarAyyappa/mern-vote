@@ -22,6 +22,8 @@ app.get('/',(req,res)=>{
 })
 app.use('/api/auth',routes.auth);
 
+app.use('/api/polls',routes.poll);
+
 //Error Handler
 
 app.use(handle.notFound);
