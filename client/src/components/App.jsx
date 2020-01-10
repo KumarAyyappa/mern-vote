@@ -6,8 +6,8 @@ import api from '../services/api';
 class App extends Component{
     async componentDidMount(){
         const result=await api.call('post','auth/login',{
-            username:"spknbhdvjb@sgswmsail.com",
-	        password:"984873232169"
+            username:"kayyapparkv@gmail.com",
+	        password:"9848723169"
         });
         console.log(result);
     }

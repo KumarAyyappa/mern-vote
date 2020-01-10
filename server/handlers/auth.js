@@ -32,6 +32,8 @@ exports.login=async (req,res,next)=>{
         const valid=await bcrypt.compare(req.body.password,user.password);
         if(valid){
 
+            console.log(`credentials are valid`);
+
             let key=new Buffer(process.env.SECRET,"base64");
 
             const token=jwt.sign({id,username},key);
