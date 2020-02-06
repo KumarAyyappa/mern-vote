@@ -1,52 +1,56 @@
-const jwt=require('jsonwebtoken');
-const bcrypt=require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 
 
-const db=require('../models');
-const config = require('../config');
+const db = require('../models');
 
-exports.register=async (req,res,next)=>{
+exports.register = async (req,res,next) => {
     try{
-        const user=await db.User.create(req.body);
+        const user = await db.User.create(req.body);
         const {id,username} = user;
 
         let key=new Buffer(config.SECRET,"base64");
 
 
-        const token=jwt.sign({id,user},key);
+        const token = jwt.sign({id, user}, key);
 
-        res.status(201).json({id,username,token});
+        res.status(201).json({
+            id,
+            username,
+            token
+        });
+
     }catch(err){
-        if(err.code===11000){
-            err.message='Sorry, the username is alreay taken';
+        if(err.code === 11000){
+            err.message = 'Sorry, the username is alreay taken';
         }
         next(err);
     }
 }
 
-exports.login=async (req,res,next)=>{
+exports.login = async (req, res, next) => {
     try{
-        const user=await db.User.findOne({username:req.body.username});
-        const {id,username}=user;
+        const user = await db.User.findOne({username:req.body.username});
+        const {id,username} = user;
 
-        const valid=await bcrypt.compare(req.body.password,user.password);
-        if(valid){
-            let key=new Buffer(process.env.SECRET,"base64");
+        const valid = await bcrypt.compare(req.body.password, user.password);
+        if (valid) {
+            let key = new Buffer(process.env.SECRET, "base64");
             const token=jwt.sign({id,username},key);
             res.json({
                 id,
                 username,
-                "action":"success",
+                "action": "success",
                 token
             });
         }
-        else{
+        else {
             throw new Error();
         }
 
     }
-    catch(err){
-        err.message='Invalid Username or Password';
+    catch(err) {
+        err.message = 'Invalid Username or Password';
         next(err);
         
     }
