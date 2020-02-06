@@ -4,6 +4,7 @@ import decode from 'jwt-decode';
 
 import {store} from '../store';
 import { setCurrentUser, addError, setToken } from '../store/actions';
+import Auth from '../components/Auth';
 
 if(localStorage.jwtToken){
     setToken(decode(localStorage.jwtToken));
@@ -17,7 +18,7 @@ if(localStorage.jwtToken){
 
 const App=()=>(
     <Provider store={store}>
-        <div>App works</div>
+        <Auth authType={'login'}/>
     </Provider>
 )
 export default App;
