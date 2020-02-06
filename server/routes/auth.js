@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-const handle = require('../handlers');
+const handle =require('../handlers');
 
 router.post('/register', handle.register);
 
