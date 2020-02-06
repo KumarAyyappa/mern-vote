@@ -1,11 +1,11 @@
-const express=require('express')
+const express = require('express');
 
 const router = express.Router();
 
 const handle = require('../handlers');
 
-router.post('/register',handle.register);
+router.post('/register', handle.register);
 
-router.post('/login',handle.login);
+router.post('/login', handle.login);
 
 module.exports = router;
