@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
+const config = require('../config');
 
 mongoose.set('debug', true);
 mongoose.Promise = global.Promise;
-mongoose.connect(`mongodb://localhost/vote`, { useNewUrlParser: true }, (err, res) => {
+mongoose.connect(config.DB_URL, { useNewUrlParser: true, useUnifiedTopology: true }, (err, res) => {
     if (err) {
         console.log(`Error connecting to db ${err}`);
     }
