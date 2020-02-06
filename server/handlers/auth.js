@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 
 
 const db = require('../models');
+const config = require('../config');
 
 exports.register = async (req,res,next) => {
     try{
@@ -35,8 +36,8 @@ exports.login = async (req, res, next) => {
 
         const valid = await bcrypt.compare(req.body.password, user.password);
         if (valid) {
-            let key = new Buffer(process.env.SECRET, "base64");
-            const token=jwt.sign({id,username},key);
+            let key = new Buffer(config.SECRET, "base64");
+            const token=jwt.sign({id, username}, key);
             res.json({
                 id,
                 username,
