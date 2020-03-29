@@ -1,12 +1,12 @@
 const express = require('express');
-const cors=require('cors');
-const bodyParser=require('body-parser');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 
 
-const db=require('./models')
-const handle=require('./handlers')
-const routes=require('./routes')
-const {config} = require('./config');
+const db = require('./models');
+const handle = require('./handlers');
+const routes = require('./routes');
+const config = require('./config');
 
 const app =express();
 const port=config.PORT;

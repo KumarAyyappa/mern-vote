@@ -10,7 +10,5 @@ mongoose.connect(config.DB_URL, { useNewUrlParser: true, useUnifiedTopology: tru
     console.log(`connected to db`);
 
 })
-
-
 module.exports.User = require('./user');
 module.exports.Poll = require('./poll');
